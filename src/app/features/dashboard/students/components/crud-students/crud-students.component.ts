@@ -56,8 +56,8 @@ export class CrudStudentsComponent implements OnInit{
 
     if(student?.courses && student.courses.length > 0){
       student.courses.forEach((courseId: string) => {
-        this.coursesService.deleteStudentFromCourse(id);
-        this.studentsService.unregisterStudent(courseId);
+        this.coursesService.deleteStudentFromCourse(courseId, id);
+        this.studentsService.unregisterStudent(courseId, id);
         this.inscriptionsService.cancelInscription(id, courseId)
       })
     }
@@ -101,8 +101,8 @@ export class CrudStudentsComponent implements OnInit{
     });
 
     dialogRef.componentInstance.confirmUnregistrationEvent.subscribe(({studentId, courseId}) => {
-      this.studentsService.unregisterStudent(courseId);
-      this.coursesService.deleteStudentFromCourse(studentId);
+      this.studentsService.unregisterStudent(courseId, studentId);
+      this.coursesService.deleteStudentFromCourse(courseId, studentId);
       this.inscriptionsService.cancelInscription(studentId, courseId)
       this.loadStudents();
     })
